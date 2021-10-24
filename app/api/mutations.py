@@ -11,8 +11,8 @@ def _make_adder(model):
         obj = model(**params)
         db.queries.add(obj)
         return ok(field_name, obj)
-    
-    func.__name__ = f"add{model.__name__}" 
+
+    func.__name__ = f"add{model.__name__}"
     return func
 
 
@@ -45,7 +45,7 @@ def _make_remover(model):
 
         db.queries.delete(model, id)
         return {"success": True}
-    
+
     func.__name__ = f"remove{model.__name__}"
     return func
 
@@ -82,15 +82,15 @@ def purchase_bouquet(_, info, bouquet_id, customer_id):
         return fail(errors)
 
     purchase = db.models.Purchase(
-            bouquetId=bouquet_id, 
+            bouquetId=bouquet_id,
             customerId=customer_id,
-            price=bouquet.price, 
+            price=bouquet.price,
             commission=bouquet.price * 0.3)
-    
+
     db.queries.add(purchase)
     db.queries.update(db.models.Seller, bouquet.sellerId,
             {"bouquetsSold": db.models.Seller.bouquetsSold + 1})
-    
+
     result = db.queries.get_one(db.models.Purchase, purchase.id)
 
     return ok("purchase", result)
