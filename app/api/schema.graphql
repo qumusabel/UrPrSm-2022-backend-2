@@ -1,0 +1,156 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+
+type Bouquet {
+  id: ID!
+  name: String!
+  price: Float!
+  photoUrl: String!
+  seller: Seller!
+}
+
+type Seller {
+  id: ID!
+  name: String!
+  photoUrl: String!
+  dateCreated: String!
+  bouquets: [Bouquet]!
+  bouquetsSold: Int!
+}
+
+type Customer {
+  id: ID!
+  name: String!
+  email: String!
+  purchases: [Purchase]!
+}
+
+type Purchase {
+  id: ID!
+  bouquet: Bouquet!
+  customer: Customer!
+  price: Float!
+  commission: Float!
+}
+
+
+type BouquetResult {
+  success: Boolean!
+  errors: [String]
+  bouquet: Bouquet
+}
+
+type RemoveBouquetResult {
+  success: Boolean!
+  errors: [String]
+}
+
+
+type CustomerResult {
+  success: Boolean!
+  errors: [String]
+  customer: Customer
+}
+
+type RemoveCustomerResult {
+  success: Boolean!
+  errors: [String]
+}
+
+
+type SellerResult {
+  success: Boolean!
+  errors: [String]
+  seller: Seller
+}
+
+type RemoveSellerResult {
+  success: Boolean!
+  errors: [String]
+}
+
+
+type PurchaseResult {
+  success: Boolean!
+  errors: [String]
+  purchase: Purchase
+}
+
+type BouquetsResult {
+  success: Boolean!
+  errors: [String]
+  bouquets: [Bouquet]
+}
+
+type SellersResult {
+  success: Boolean!
+  errors: [String]
+  sellers: [Seller]
+}
+
+type PurchasesResult {
+  success: Boolean!
+  errors: [String]
+  purchases: [Purchase]
+}
+
+
+
+type Query {
+  bouquet(bouquetId: ID!): BouquetResult!
+  customer(customerId: ID!): CustomerResult!
+  seller(sellerId: ID!): SellerResult!
+
+  bouquets: BouquetsResult!
+  sellers: SellersResult!
+  purchases(customerId: ID!): PurchasesResult!
+}
+
+type Mutation {
+  addBouquet(
+    name: String!,
+    price: Float!,
+    photoUrl: String!,
+    sellerId: ID!
+  ): BouquetResult!
+  updateBouquet(
+    bouquetId: ID!
+    name: String,
+    price: Float,
+    photoUrl: String,
+  ): BouquetResult!
+  removeBouquet(
+    bouquetId: ID!
+  ): RemoveBouquetResult!
+
+  addCustomer(
+    name: String!,
+    email: String!
+  ): CustomerResult!
+  updateCustomer(
+    customerId: ID!,
+    name: String,
+    email: String,
+  ): CustomerResult!
+  removeCustomer(
+    customerId: ID!,
+  ): RemoveCustomerResult!
+
+  addSeller(
+    name: String!,
+    photoUrl: String!,
+  ): SellerResult!
+  updateSeller(
+    sellerId: ID!
+    name: String,
+    photoUrl: String,
+  ): SellerResult!
+  removeSeller(
+    sellerId: ID!
+  ): RemoveSellerResult!
+
+  purchaseBouquet(bouquetId: ID!, customerId: ID!): PurchaseResult!
+}
