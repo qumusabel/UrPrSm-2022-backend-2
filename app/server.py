@@ -5,13 +5,13 @@ from ariadne.constants import PLAYGROUND_HTML
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 
-from . import api
 
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = f'sqlite:///{os.getenv("SQLITE_FILE", "")}'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
+from . import api
 
 @app.route("/graphql", methods=["GET"])
 def playgroud():
