@@ -63,7 +63,7 @@ mutation {
 ```
 ```graphql
 mutation {
-    updateSeller (name: "worst flower", photoUrl: "https://example.com") {
+    updateSeller (sellerId: 2, name: "worst flower", photoUrl: "https://example.com") {
         success errors 
         seller {
             id name photoUrl dateCreated
@@ -108,7 +108,7 @@ mutation {
 ```
 ```graphql
 mutation {
-    updateBouquet (name: "Cool Violets", photoUrl: "https://example.com", price: 420) {
+    updateBouquet (bouquetId: 2, name: "Cool Violets", photoUrl: "https://example.com", price: 420) {
         success errors
         bouquet {
             id name photoUrl price
