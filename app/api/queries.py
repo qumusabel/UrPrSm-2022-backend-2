@@ -49,3 +49,5 @@ def purchases(_, info, customer_id):
     if customer is None:
         return fail([f"customer id={customer_id} not found"])
 
+    return ok("purchases", customer.purchases)
+
